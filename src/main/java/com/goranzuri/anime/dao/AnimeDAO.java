@@ -18,4 +18,8 @@ public class AnimeDAO extends AbstractDAO<Anime> {
         List<Anime> a = list(namedQuery("anime.findAll"));
         return a;
     }
+
+    public List<Anime> findAllOnStorage(int storageId){
+        return list(namedQuery("anime.findAllOnDrive"));
+    }
 }

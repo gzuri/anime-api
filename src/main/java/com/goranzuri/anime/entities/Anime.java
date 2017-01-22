@@ -8,7 +8,8 @@ import java.util.Date;
  */
 @Entity(name = "anime")
 @NamedQueries({
-        @NamedQuery(name="anime.findAll", query = "select a from anime a")
+        @NamedQuery(name="anime.findAll", query = "select a from anime a"),
+        @NamedQuery(name = "anime.findAllOnDrive", query = "select anistor from anime_storage anistor where anistor.storage.id = :storageId")
 })
 public class Anime {
     @Id
@@ -22,6 +23,9 @@ public class Anime {
     @Column(name = "date_added", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateAdded;
+
+    @Column(name = "name_on_disk")
+    private String nameOnDisk;
 
     public int getAnimeId() {
         return animeId;
@@ -41,5 +45,13 @@ public class Anime {
 
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public String getNameOnDisk() {
+        return nameOnDisk;
+    }
+
+    public void setNameOnDisk(String nameOnDisk) {
+        this.nameOnDisk = nameOnDisk;
     }
 }
