@@ -10,6 +10,7 @@ import javax.persistence.*;
         @NamedQuery(name="storage.findAll", query = "select s from storage s")
 })
 public class Storage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "storage_id")
@@ -20,6 +21,10 @@ public class Storage {
 
     @Column(name = "path")
     private String path;
+
+    public void setStorageId(int storageId) {
+        this.storageId = storageId;
+    }
 
     public String getName() {
         return name;

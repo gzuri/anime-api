@@ -1,6 +1,7 @@
 package com.goranzuri.anime.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,10 +9,9 @@ import java.util.Date;
  */
 @Entity(name = "anime")
 @NamedQueries({
-        @NamedQuery(name="anime.findAll", query = "select a from anime a"),
-        @NamedQuery(name = "anime.findAllOnDrive", query = "select anistor from anime_storage anistor where anistor.storage.id = :storageId")
+        @NamedQuery(name = "anime.findAll", query = "select a from anime a"),
 })
-public class Anime {
+public class Anime implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "anime_id")
@@ -30,6 +30,7 @@ public class Anime {
     public int getAnimeId() {
         return animeId;
     }
+    public void setAnimeId(int animeId){ this.animeId = animeId; }
 
     public String getName() {
         return name;
