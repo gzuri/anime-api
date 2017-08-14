@@ -1,13 +1,11 @@
 package com.goranzuri.anime.services;
 
-import com.goranzuri.anime.dao.AnimeDAO;
-import com.goranzuri.anime.entities.Anime;
+import com.goranzuri.anime.db.dao.AnimeDAO;
+import com.goranzuri.anime.db.entities.Anime;
 import com.goranzuri.anime.exceptions.StorageNotFoundException;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by gzuri on 21.01.2017..
