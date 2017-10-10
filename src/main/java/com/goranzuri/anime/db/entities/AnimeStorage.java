@@ -1,6 +1,4 @@
-package com.goranzuri.anime.entities;
-
-import org.hibernate.annotations.LazyCollection;
+package com.goranzuri.anime.db.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;

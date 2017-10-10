@@ -1,4 +1,4 @@
-package com.goranzuri.anime.services;
+package com.goranzuri.anime.service;
 
 import com.goranzuri.anime.db.dao.AnimeDAO;
 import com.goranzuri.anime.db.entities.Anime;

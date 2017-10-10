@@ -1,13 +1,16 @@
 package com.goranzuri.anime.api;
 
 import com.codahale.metrics.annotation.Timed;
-import com.goranzuri.anime.dao.AnimeDAO;
-import com.goranzuri.anime.entities.Anime;
+import com.goranzuri.anime.db.dao.AnimeDAO;
+import com.goranzuri.anime.db.entities.Anime;
 import com.goranzuri.anime.exceptions.StorageNotFoundException;
-import com.goranzuri.anime.services.AnimeUpdateService;
+import com.goranzuri.anime.service.AnimeService;
+import com.goranzuri.anime.service.AnimeUpdateService;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.swagger.annotations.Api;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -15,24 +18,34 @@ import java.util.List;
 /**
  * Created by gzuri on 20.01.2017..
  */
-@Api
+@Api("Anime")
 @Path("/anime")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class AnimeResource {
-    private AnimeDAO animeDAO;
 
-    public AnimeResource(AnimeDAO animeDAO){
-        this.animeDAO = animeDAO;
+    private final AnimeService animeService;
+
+    @Inject
+    public AnimeResource(AnimeService animeService){
+        this.animeService = animeService;
     }
 
     @GET
     @UnitOfWork
     @Timed
     public List<Anime> findAll() {
-        List<Anime> animes = animeDAO.findAll();
-        return animes;
+        return animeService.get();
     }
 
+    @GET
+    @UnitOfWork
+    @Timed
+    @Path("/{animeId}")
+    public Anime get(@PathParam("animeId") Integer id){
+        return animeService.get(id);
+    }
+/*
     @Path("/syncList")
     @POST
     @UnitOfWork
@@ -44,4 +57,5 @@ public class AnimeResource {
 
         return true;
     }
+    */
 }

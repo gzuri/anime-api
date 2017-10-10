@@ -1,4 +1,4 @@
-package com.goranzuri.anime.entities;
+package com.goranzuri.anime.db.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;

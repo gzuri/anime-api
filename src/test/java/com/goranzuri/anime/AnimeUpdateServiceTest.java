@@ -1,7 +1,6 @@
 package com.goranzuri.anime;
 
-import com.goranzuri.anime.dao.AnimeDAO;
-import com.goranzuri.anime.services.AnimeUpdateService;
+import com.goranzuri.anime.service.AnimeUpdateService;
 import org.junit.Assert;
 import org.junit.Test;
 

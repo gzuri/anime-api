@@ -72,5 +72,5 @@ hs_err_pid*
 
 # End of https://www.gitignore.io/api/inte,intellij+iml,maven,java
 
-src/main/resources/local_config.yml
+src/local_config.yml
 src/main/resources/hibernate.cfg.xml

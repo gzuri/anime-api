@@ -1,7 +1,7 @@
 package com.goranzuri.anime.api;
 
-import com.goranzuri.anime.dao.StorageDAO;
-import com.goranzuri.anime.entities.Storage;
+import com.goranzuri.anime.db.dao.StorageDAO;
+import com.goranzuri.anime.db.entities.Storage;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.swagger.annotations.Api;
 
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by gzuri on 20.01.2017..
  */
-@Api
+@Api("Storage")
 @Path("/storage")
 @Produces(MediaType.APPLICATION_JSON)
 public class StorageResource {

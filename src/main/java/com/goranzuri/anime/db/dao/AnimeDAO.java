@@ -1,14 +1,16 @@
-package com.goranzuri.anime.dao;
+package com.goranzuri.anime.db.dao;
 
-import com.goranzuri.anime.entities.Anime;
-import com.goranzuri.anime.entities.AnimeStorage;
-import com.goranzuri.anime.entities.Storage;
+import com.goranzuri.anime.db.entities.Anime;
+import com.goranzuri.anime.db.entities.AnimeStorage;
+import com.goranzuri.anime.db.entities.Storage;
 import com.goranzuri.anime.exceptions.StorageNotFoundException;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by gzuri on 20.01.2017..
@@ -30,10 +32,17 @@ public class AnimeDAO extends AbstractDAO<Anime> {
         return allAnimeOnStorageQuery.list();
     }
 
-    public void create(Anime anime){
-        currentSession().save(anime);
+    public Anime get(Integer animeId){
+        return currentSession().get(Anime.class, (Serializable) Objects.requireNonNull(animeId));
     }
 
+    public void create(Anime anime){
+        currentSession().save(Objects.requireNonNull(anime));
+    }
+
+    public void update(Anime entity){
+        currentSession().update(Objects.requireNonNull(entity));
+    }
 
     public void saveOnStorage(int animeId, int storageId) throws StorageNotFoundException {
 

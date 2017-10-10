@@ -1,10 +1,11 @@
 package com.goranzuri.anime;
 
 import com.goranzuri.anime.api.AnimeResource;
-import com.goranzuri.anime.dao.AnimeDAO;
-import com.goranzuri.anime.entities.Anime;
-import com.goranzuri.anime.entities.AnimeStorage;
-import com.goranzuri.anime.entities.Storage;
+import com.goranzuri.anime.db.dao.AnimeDAO;
+import com.goranzuri.anime.db.entities.Anime;
+import com.goranzuri.anime.db.entities.AnimeStorage;
+import com.goranzuri.anime.db.entities.Storage;
+import com.goranzuri.anime.service.AnimeService;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
@@ -27,8 +28,10 @@ public class AnimeApiApplication extends Application<AnimeApiConfiguration> {
 
     @Override
     public void run(AnimeApiConfiguration configuration, Environment environment) throws Exception {
+
         final AnimeDAO animeDAO = new AnimeDAO(hibernateAnimeBundle.getSessionFactory());
-        environment.jersey().register(new AnimeResource(animeDAO));
+        final AnimeService animeService = new AnimeService(animeDAO);
+        environment.jersey().register(new AnimeResource(animeService));
     }
 
     public static void main(String[] args) throws Exception {

@@ -1,10 +1,9 @@
-package com.goranzuri.anime.dao;
+package com.goranzuri.anime.db.dao;
 
-import com.goranzuri.anime.entities.Storage;
+import com.goranzuri.anime.db.entities.Storage;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
-import javax.persistence.NamedQuery;
 import java.util.List;
 
 /**
