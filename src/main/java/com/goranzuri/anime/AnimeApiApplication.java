@@ -1,14 +1,8 @@
 package com.goranzuri.anime;
 
 import com.goranzuri.anime.api.AnimeResource;
-import com.goranzuri.anime.db.dao.AnimeDAO;
-import com.goranzuri.anime.db.entities.Anime;
-import com.goranzuri.anime.db.entities.AnimeStorage;
-import com.goranzuri.anime.db.entities.Storage;
 import com.goranzuri.anime.service.AnimeService;
 import io.dropwizard.Application;
-import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
@@ -18,20 +12,12 @@ import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
  * Created by gzuri on 20.01.2017..
  */
 public class AnimeApiApplication extends Application<AnimeApiConfiguration> {
-    private final HibernateBundle<AnimeApiConfiguration> hibernateAnimeBundle = new HibernateBundle<AnimeApiConfiguration>(Anime.class, AnimeStorage.class, Storage.class) {
-        @Override
-        public DataSourceFactory getDataSourceFactory(AnimeApiConfiguration configuration) {
-            return configuration.getDataSourceFactory();
-        }
-
-    };
 
     @Override
     public void run(AnimeApiConfiguration configuration, Environment environment) throws Exception {
-
-        final AnimeDAO animeDAO = new AnimeDAO(hibernateAnimeBundle.getSessionFactory());
-        final AnimeService animeService = new AnimeService(animeDAO);
+        final AnimeService animeService = new AnimeService(configuration);
         environment.jersey().register(new AnimeResource(animeService));
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -51,9 +37,6 @@ public class AnimeApiApplication extends Application<AnimeApiConfiguration> {
                 return configuration.swaggerBundleConfiguration;
             }
         });
-
-        bootstrap.addBundle(hibernateAnimeBundle);
-
 
     }
 }

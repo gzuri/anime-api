@@ -17,17 +17,12 @@ public class AnimeApiConfiguration extends Configuration {
     @NotNull
     private String defaultName = "Stranger";
 
-    @Valid
-    @NotNull
-    @JsonProperty("database")
-    private DataSourceFactory database = new DataSourceFactory();
 
     @JsonProperty("swagger")
     public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
-    public DataSourceFactory getDataSourceFactory() {
-        return database;
-    }
+    @JsonProperty("dbLocation")
+    private String dbLocation;
 
     public String getDefaultName() {
         return defaultName;
@@ -44,4 +39,6 @@ public class AnimeApiConfiguration extends Configuration {
     public String getTemplate() {
         return template;
     }
+
+    public String getDbLocation() {return this.dbLocation; }
 }

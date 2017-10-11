@@ -1,19 +1,18 @@
 package com.goranzuri.anime.api;
 
 import com.codahale.metrics.annotation.Timed;
-import com.goranzuri.anime.db.dao.AnimeDAO;
-import com.goranzuri.anime.db.entities.Anime;
-import com.goranzuri.anime.exceptions.StorageNotFoundException;
+import com.goranzuri.anime.entities.Anime;
 import com.goranzuri.anime.service.AnimeService;
-import com.goranzuri.anime.service.AnimeUpdateService;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.swagger.annotations.Api;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by gzuri on 20.01.2017..
@@ -27,7 +26,7 @@ public class AnimeResource {
     private final AnimeService animeService;
 
     @Inject
-    public AnimeResource(AnimeService animeService){
+    public AnimeResource( AnimeService animeService){
         this.animeService = animeService;
     }
 
@@ -42,20 +41,13 @@ public class AnimeResource {
     @UnitOfWork
     @Timed
     @Path("/{animeId}")
-    public Anime get(@PathParam("animeId") Integer id){
+    public Anime get(@PathParam("animeId") UUID id){
         return animeService.get(id);
     }
-/*
-    @Path("/syncList")
+
     @POST
-    @UnitOfWork
     @Timed
-    public boolean syncList(@FormParam("storageId") int storageId, @FormParam("animeOnDisk") List<String> animeOnDisk) throws StorageNotFoundException {
-        AnimeUpdateService animeUpdateService = new AnimeUpdateService(animeDAO, storageId);
-
-        animeUpdateService.updateListBasedOnStorageContent(animeOnDisk);
-
-        return true;
+    public Anime post(@Valid Anime anime){
+        return animeService.add(anime);
     }
-    */
 }
