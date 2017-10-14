@@ -20,6 +20,7 @@ public class Anime {
     private String name;
     @JsonProperty
     private Long createdOn;
+
     @JsonProperty
     private Date updatedOn;
 
@@ -59,5 +60,45 @@ public class Anime {
 
     public void setCreatedOn(Long createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public String getNameOnDisk() {
+        return nameOnDisk;
+    }
+
+    public void setNameOnDisk(String nameOnDisk) {
+        this.nameOnDisk = nameOnDisk;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getAnidbCode() {
+        return anidbCode;
+    }
+
+    public void setAnidbCode(String anidbCode) {
+        this.anidbCode = anidbCode;
+    }
+
+    public List<String> getStorage() {
+        return storage;
+    }
+
+    public void setStorage(List<String> storage) {
+        this.storage = storage;
     }
 }

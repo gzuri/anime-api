@@ -1,1 +1,46 @@
-[{"animeId":null,"name":"Test name","createdOn":null,"updatedOn":null,"nameOnDisk":null,"thumbnail":null,"anidbCode":null,"storage":null},{"animeId":"42420783-4b73-409f-a448-b43f42a100ce","name":"Test name","createdOn":null,"updatedOn":null,"nameOnDisk":"bla","thumbnail":null,"anidbCode":null,"storage":null}]
+[
+  {
+    "animeId": null,
+    "name": "Test name",
+    "createdOn": null,
+    "updatedOn": null,
+    "nameOnDisk": null,
+    "thumbnail": null,
+    "anidbCode": null,
+    "storage": null
+  },
+  {
+    "animeId": "42420783-4b73-409f-a448-b43f42a100ce",
+    "name": "Test name",
+    "createdOn": null,
+    "updatedOn": null,
+    "nameOnDisk": "bla",
+    "thumbnail": null,
+    "anidbCode": null,
+    "storage": null
+  },
+  {
+    "animeId": "c82982c4-6793-4e56-addd-1ef733e40ac0",
+    "name": "a",
+    "createdOn": 1507998656,
+    "updatedOn": null,
+    "nameOnDisk": "a",
+    "thumbnail": null,
+    "anidbCode": null,
+    "storage": [
+      "d"
+    ]
+  },
+  {
+    "animeId": "5296ba64-f753-41b2-b9bb-4440a9314505",
+    "name": "b",
+    "createdOn": 1507998656,
+    "updatedOn": null,
+    "nameOnDisk": "b",
+    "thumbnail": null,
+    "anidbCode": null,
+    "storage": [
+      "d"
+    ]
+  }
+]

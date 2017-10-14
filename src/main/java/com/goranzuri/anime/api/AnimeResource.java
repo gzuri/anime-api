@@ -1,11 +1,14 @@
 package com.goranzuri.anime.api;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.goranzuri.anime.api.entities.SyncDriveReq;
 import com.goranzuri.anime.entities.Anime;
+import com.goranzuri.anime.exceptions.AnimeNotFoundException;
 import com.goranzuri.anime.service.AnimeService;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.swagger.annotations.Api;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -41,7 +44,7 @@ public class AnimeResource {
     @UnitOfWork
     @Timed
     @Path("/{animeId}")
-    public Anime get(@PathParam("animeId") UUID id){
+    public Anime get(@PathParam("animeId") UUID id) throws AnimeNotFoundException {
         return animeService.get(id);
     }
 
@@ -50,4 +53,11 @@ public class AnimeResource {
     public Anime post(@Valid Anime anime){
         return animeService.add(anime);
     }
+
+    @POST
+    @Path("syncDrive")
+    public void syncDrive(@Valid SyncDriveReq req){
+        animeService.syncDrive(req.getNamesOnDisk(), req.getStorage());
+    }
+
 }
