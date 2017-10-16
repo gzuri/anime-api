@@ -1,10 +1,17 @@
 package com.goranzuri.anime.service;
 
+import com.goranzuri.anime.AnimeApiConfiguration;
 import com.goranzuri.anime.entities.Anime;
 import com.goranzuri.anime.exceptions.AnimeNotFoundException;
 import com.goranzuri.anime.providers.DbProvider;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,11 +20,13 @@ import java.util.stream.Collectors;
  * Created by gzuri on 14/08/2017.
  */
 public class AnimeService {
+    private final AnimeApiConfiguration configuration;
     private final DbProvider dbProvider;
     private final AniDbService aniDbService;
 
     @Inject
-    public AnimeService(DbProvider dbProvider){
+    public AnimeService(AnimeApiConfiguration configuration, DbProvider dbProvider){
+        this.configuration = configuration;
 
         this.dbProvider = dbProvider;
         aniDbService = new AniDbService();
@@ -137,6 +146,40 @@ public class AnimeService {
         return dbProvider.get().stream()
                 .filter(x -> x.getAnidbCode() == null || x.getAnidbCode().isEmpty())
                 .collect(Collectors.toList());
+    }
+
+    public void fillThumbnails(){
+        List<Anime> dbAnimeWithoutThumbnail = findAnimeWithoutThumbnail();
+
+        for (Anime anime: dbAnimeWithoutThumbnail){
+            try {
+                String thumbnailUrl = aniDbService.getThumbnailUrl(anime.getAnidbCode());
+
+                anime.setThumbnail(pullThumbnail(anime, thumbnailUrl));
+                dbProvider.update(anime);
+
+            }catch (Exception ex){
+
+            }
+        }
+
+    }
+
+    private List<Anime> findAnimeWithoutThumbnail(){
+        return dbProvider.get().stream()
+                .filter(x -> x.getAnidbCode() != null && x.getThumbnail() == null)
+                .collect(Collectors.toList());
+    }
+
+    private String pullThumbnail(Anime anime, String thumbnailUrl) throws IOException {
+
+        String thumbName = anime.getAnimeId().toString() + ".jpg";
+
+        try(InputStream in = new URL(thumbnailUrl).openStream()){
+            Files.copy(in, Paths.get(configuration.getImagesLocation() + thumbName));
+        }
+
+        return thumbName;
     }
 
 }

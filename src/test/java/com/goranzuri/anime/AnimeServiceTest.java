@@ -32,7 +32,7 @@ public class AnimeServiceTest {
 
     @Test
     public void TestAddNewAnime(){
-        AnimeService animeService = new AnimeService(new InMemoryDbProvider());
+        AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
 
         animeService.add(createDefaultAnime());
 
@@ -41,7 +41,7 @@ public class AnimeServiceTest {
 
     @Test
     public void TestMergeAnimeWithTwoDifferentStorage() throws AnimeNotFoundException {
-        AnimeService animeService = new AnimeService(new InMemoryDbProvider());
+        AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
 
         Anime anime = createDefaultAnime();
         animeService.add(anime);
@@ -58,7 +58,7 @@ public class AnimeServiceTest {
 
     @Test
     public void TestMergeAnimeWithTwoSameStorage() throws AnimeNotFoundException{
-        AnimeService animeService = new AnimeService(new InMemoryDbProvider());
+        AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
 
         Anime anime = createDefaultAnime();
         animeService.add(anime);
@@ -73,7 +73,7 @@ public class AnimeServiceTest {
 
     @Test
     public void syncDriveWithOneLessAnimeOnStorage(){
-        AnimeService animeService = new AnimeService(new InMemoryDbProvider());
+        AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
 
         animeService.add(createDefaultAnime());
 
@@ -93,7 +93,7 @@ public class AnimeServiceTest {
 
     @Test
     public void syncDriveNewAnime(){
-        AnimeService animeService = new AnimeService(new InMemoryDbProvider());
+        AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
 
         Anime anime = createDefaultAnime();
         animeService.add(anime);

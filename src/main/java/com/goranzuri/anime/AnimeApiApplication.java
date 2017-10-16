@@ -19,7 +19,7 @@ public class AnimeApiApplication extends Application<AnimeApiConfiguration> {
     @Override
     public void run(AnimeApiConfiguration configuration, Environment environment) throws Exception {
         final DbProvider dbProvider = new JsonDbProvider(configuration);
-        final AnimeService animeService = new AnimeService(dbProvider);
+        final AnimeService animeService = new AnimeService(configuration, dbProvider);
         environment.jersey().register(new AnimeResource(animeService));
         environment.healthChecks().register("database", new DbHealthCheck(configuration));
     }

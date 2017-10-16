@@ -24,6 +24,9 @@ public class AnimeApiConfiguration extends Configuration {
     @JsonProperty("dbLocation")
     private String dbLocation;
 
+    @JsonProperty("imagesLocation")
+    private String imagesLocation;
+
     public String getDefaultName() {
         return defaultName;
     }
@@ -41,4 +44,12 @@ public class AnimeApiConfiguration extends Configuration {
     }
 
     public String getDbLocation() {return this.dbLocation; }
+
+    public String getImagesLocation() {
+        return imagesLocation;
+    }
+
+    public void setImagesLocation(String imagesLocation) {
+        this.imagesLocation = imagesLocation;
+    }
 }

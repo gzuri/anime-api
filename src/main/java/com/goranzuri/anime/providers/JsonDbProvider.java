@@ -70,7 +70,7 @@ public class JsonDbProvider implements DbProvider {
 
         dbAnime.setAnidbCode(anime.getAnidbCode());
         dbAnime.setStorage(anime.getStorage());
-
+        dbAnime.setThumbnail(anime.getThumbnail());
 
         save(dbAnimes);
 

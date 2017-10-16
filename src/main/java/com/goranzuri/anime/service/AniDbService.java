@@ -1,8 +1,11 @@
 package com.goranzuri.anime.service;
 
+import com.goranzuri.anime.AnimeApiConfiguration;
 import com.goranzuri.anime.entities.Anime;
 import com.goranzuri.anime.exceptions.AnimeNotFoundException;
 import com.goranzuri.anime.providers.DbProvider;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -10,6 +13,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.inject.Inject;
+import javax.lang.model.util.Elements;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,15 +22,16 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Created by gzuri on 15/10/2017.
  */
 public class AniDbService {
+
 
 
     @Inject
@@ -121,5 +126,22 @@ public class AniDbService {
         }
 
         return animeList;
+    }
+
+
+    public String getThumbnailUrl(String aniDbCode) throws IOException {
+        Connection connection = Jsoup.connect("https://anidb.net/perl-bin/animedb.pl?show=anime&aid=" + aniDbCode);
+        connection.userAgent("Mozilla/5.0");
+        org.jsoup.nodes.Document doc = connection.get();
+        org.jsoup.select.Elements allImages = doc.select("img");
+        //org.jsoup.select.Elements allImages = mainLayout.select("img");
+
+
+        List<String> mainImages = allImages.stream()
+                .filter(x -> x.attr("src") != null && !x.attr("src").contains("thumb") && !x.attr("src").contains("icons"))
+                .map(x -> x.attr("src"))
+                .collect(Collectors.toList());
+
+        return mainImages.get(0);
     }
 }
