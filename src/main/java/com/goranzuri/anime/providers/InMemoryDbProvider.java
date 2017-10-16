@@ -2,6 +2,7 @@ package com.goranzuri.anime.providers;
 
 import com.goranzuri.anime.entities.Anime;
 import com.goranzuri.anime.exceptions.AnimeNotFoundException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,10 @@ public class InMemoryDbProvider implements DbProvider {
     @Override
     public Anime get(UUID animeId) throws AnimeNotFoundException {
         return this.animes.stream().filter(e -> e.getAnimeId().equals(animeId)).findFirst().get();
+    }
+
+    @Override
+    public Anime update(Anime anime){
+        throw new NotImplementedException();
     }
 }

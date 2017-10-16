@@ -60,4 +60,10 @@ public class AnimeResource {
         animeService.syncDrive(req.getNamesOnDisk(), req.getStorage());
     }
 
+    @GET
+    @Path("updateAniDbCode")
+    public void updateAniDbCode(){
+        animeService.fillAniDbData();
+    }
+
 }

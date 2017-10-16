@@ -10,8 +10,9 @@ import java.util.UUID;
  * Created by gzuri on 11/10/2017.
  */
 public interface DbProvider {
-    public List<Anime> get();
-    public void save(List<Anime> animes);
-    public Anime get(UUID animeId) throws AnimeNotFoundException;
+    List<Anime> get();
+    void save(List<Anime> animes);
+    Anime get(UUID animeId) throws AnimeNotFoundException;
+    Anime update(Anime anime);
 
 }

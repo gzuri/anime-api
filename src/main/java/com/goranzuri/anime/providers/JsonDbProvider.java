@@ -60,4 +60,21 @@ public class JsonDbProvider implements DbProvider {
         }
     }
 
+    public Anime update(Anime anime){
+        List<Anime> dbAnimes = get();
+
+        Anime dbAnime = dbAnimes.stream()
+                .filter(x -> x.getAnimeId().equals(anime.getAnimeId()))
+                .findFirst()
+                .get();
+
+        dbAnime.setAnidbCode(anime.getAnidbCode());
+        dbAnime.setStorage(anime.getStorage());
+
+
+        save(dbAnimes);
+
+        return dbAnime;
+    }
+
 }

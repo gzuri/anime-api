@@ -1,11 +1,8 @@
 package com.goranzuri.anime.service;
 
-import com.goranzuri.anime.AnimeApiConfiguration;
 import com.goranzuri.anime.entities.Anime;
 import com.goranzuri.anime.exceptions.AnimeNotFoundException;
 import com.goranzuri.anime.providers.DbProvider;
-import com.goranzuri.anime.providers.JsonDbProvider;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.inject.Inject;
 import java.time.Instant;
@@ -17,10 +14,13 @@ import java.util.stream.Collectors;
  */
 public class AnimeService {
     private final DbProvider dbProvider;
+    private final AniDbService aniDbService;
 
     @Inject
     public AnimeService(DbProvider dbProvider){
+
         this.dbProvider = dbProvider;
+        aniDbService = new AniDbService();
     }
 
     public List<Anime> get(){
@@ -38,6 +38,8 @@ public class AnimeService {
 
         newAnime.setAnimeId(UUID.randomUUID());
         newAnime.setCreatedOn(Instant.now().getEpochSecond());
+        //replace trailing slash
+
         animes.add(newAnime);
 
         if (newAnime.getName() == null || newAnime.getName().isEmpty()) {
@@ -74,26 +76,14 @@ public class AnimeService {
         return anime;
     }
 
-    public Anime update(Anime anime){
-        List<Anime> dbAnimes = dbProvider.get();
-
-        Anime dbAnime = dbAnimes.stream()
-                .filter(x -> x.getAnimeId().equals(anime.getAnimeId()))
-                .findFirst()
-                .get();
-
-        dbAnime.setStorage(anime.getStorage());
-
-
-        dbProvider.save(dbAnimes);
-
-        return dbAnime;
-    }
 
 
     public void syncDrive(List<String> namesOnDisk, String storage){
         List<Anime> dbAnimes = getOnStorage(storage);
         Set<UUID> processedAnime = new HashSet<>();
+
+        for(String nameOnDisk : namesOnDisk)
+            nameOnDisk = nameOnDisk.replace("/$", "");
 
         for (String nameOnDisk: namesOnDisk){
             Optional<Anime> dbAnimeResult = dbAnimes.stream()
@@ -116,7 +106,7 @@ public class AnimeService {
                 List<String> animeStorage = new ArrayList<>(anime.getStorage());
                 animeStorage.remove(storage);
                 anime.setStorage(animeStorage);
-                update(anime);
+                dbProvider.update(anime);
             }
         }
     }
@@ -124,6 +114,28 @@ public class AnimeService {
     private List<Anime> getOnStorage(String storage){
         return dbProvider.get().stream()
                 .filter(x -> x.getStorage() != null && x.getStorage().contains(storage))
+                .collect(Collectors.toList());
+    }
+
+
+    public void fillAniDbData(){
+        List<Anime> dbAnimeWithoutAniDbReference = findAnimeWithoutAniDbReference();
+
+        for (Anime anime: dbAnimeWithoutAniDbReference){
+            try{
+                Integer aniDbCode = aniDbService.getAnidbCode(anime.getName());
+                anime.setAnidbCode(aniDbCode.toString());
+                dbProvider.update(anime);
+
+            }catch (Exception ex){
+
+            }
+        }
+    }
+
+    private List<Anime> findAnimeWithoutAniDbReference(){
+        return dbProvider.get().stream()
+                .filter(x -> x.getAnidbCode() == null || x.getAnidbCode().isEmpty())
                 .collect(Collectors.toList());
     }
 
