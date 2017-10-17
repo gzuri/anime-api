@@ -131,7 +131,7 @@ public class AniDbService {
 
     public String getThumbnailUrl(String aniDbCode) throws IOException {
         Connection connection = Jsoup.connect("https://anidb.net/perl-bin/animedb.pl?show=anime&aid=" + aniDbCode);
-        connection.userAgent("Mozilla/5.0");
+        connection.userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
         org.jsoup.nodes.Document doc = connection.get();
         org.jsoup.select.Elements allImages = doc.select("img");
         //org.jsoup.select.Elements allImages = mainLayout.select("img");
