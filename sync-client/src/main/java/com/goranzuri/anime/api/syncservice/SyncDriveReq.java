@@ -1,7 +1,6 @@
 package com.goranzuri.anime.api.syncservice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -10,11 +9,10 @@ import java.util.List;
  */
 public class SyncDriveReq {
     @JsonProperty
-    @NotEmpty
+
     List<String> namesOnDisk;
 
     @JsonProperty
-    @NotEmpty
     String storage;
 
     public SyncDriveReq(){
