@@ -6,7 +6,11 @@
 
     <groupId>anime</groupId>
     <artifactId>anime-api</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>sync-client</module>
+    </modules>
 
     <properties>
         <dropwizard.version>1.0.6</dropwizard.version>
