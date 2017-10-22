@@ -70,7 +70,7 @@ public class AnimeServiceTest {
 
         Assert.assertTrue(anime.getStorage().size() == 1);
     }
-
+/*
     @Test
     public void syncDriveWithOneLessAnimeOnStorage(){
         AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
@@ -90,7 +90,7 @@ public class AnimeServiceTest {
         Assert.assertTrue(animeOnDefaultStorage == 1);
 
     }
-
+*/
     @Test
     public void syncDriveNewAnime(){
         AnimeService animeService = new AnimeService(null, new InMemoryDbProvider());
