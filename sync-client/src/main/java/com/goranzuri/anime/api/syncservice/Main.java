@@ -21,16 +21,19 @@ public class Main {
     private static final String DIRECTORY_ARGUMENT = "dir";
     private static final String STORAGE_ARGUMENT = "storage";
     private static final String URL_ARGUMENT = "url";
+    private static final String BASIC_AUTH = "auth";
 
     private static Options prepareCommandLineOptions() {
         Option option_directory = OptionBuilder.withArgName(DIRECTORY_ARGUMENT).hasArg().withDescription("source directory to search").create(DIRECTORY_ARGUMENT);
         Option option_storage = OptionBuilder.withArgName(STORAGE_ARGUMENT).hasArg().withDescription("source directory to search").create(STORAGE_ARGUMENT);
         Option option_url = OptionBuilder.withArgName(URL_ARGUMENT).hasArg().withDescription("source directory to search").create(URL_ARGUMENT);
+        Option option_auth = OptionBuilder.withArgName(BASIC_AUTH).hasArg().withDescription("basic auth on server").create(BASIC_AUTH);
 
         Options options = new Options();
         options.addOption(option_directory);
         options.addOption(option_storage);
         options.addOption(option_url);
+        options.addOption(option_auth);
 
         return options;
     }
@@ -68,6 +71,9 @@ public class Main {
         HttpPost request = new HttpPost(commandLine.getOptionValue(URL_ARGUMENT).toString());
         StringEntity params =new StringEntity(json);
         request.addHeader("content-type", "application/json");
+        if (commandLine.hasOption(BASIC_AUTH)){
+            request.setHeader("Authorization", "Basic " + commandLine.getOptionValue(BASIC_AUTH).toString());
+        }
         request.setEntity(params);
         httpClient.execute(request);
     }

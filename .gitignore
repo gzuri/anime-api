@@ -72,6 +72,6 @@ buildNumber.properties
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/inte,intellij+iml,maven,java
-
+.DS_Store
 src/local_config.yml
 src/main/resources/hibernate.cfg.xml

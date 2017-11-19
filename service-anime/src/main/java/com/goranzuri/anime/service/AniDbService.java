@@ -110,10 +110,14 @@ public class AniDbService {
                 NodeList childNodes = node.getChildNodes();
                 for(int j = 0; j < childNodes.getLength(); j++){
                     Node childNode = childNodes.item(j);
-                    if (childNode.getAttributes().getNamedItem("lang").getNodeValue().equals("en")
+                    if ((childNode.getAttributes().getNamedItem("lang").getNodeValue().equals("en")
                             && (childNode.getAttributes().getNamedItem("type").getNodeValue().equals("official")
                             || childNode.getAttributes().getNamedItem("type").getNodeValue().equals("main")
-                            || childNode.getAttributes().getNamedItem("type").getNodeValue().equals("syn"))){
+                            || childNode.getAttributes().getNamedItem("type").getNodeValue().equals("syn")))
+                        || childNode.getAttributes().getNamedItem("lang").getNodeValue().equals("x-jat")
+                            && childNode.getAttributes().getNamedItem("type").getNodeValue().equals("main")){
+
+
 
                         Integer aid = Integer.parseInt(node.getAttributes().getNamedItem("aid").getNodeValue());
 

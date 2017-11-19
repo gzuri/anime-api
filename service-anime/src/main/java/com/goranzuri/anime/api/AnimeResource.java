@@ -9,6 +9,8 @@ import com.goranzuri.anime.service.AnimeService;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.swagger.annotations.Api;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -26,6 +28,7 @@ import java.util.UUID;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AnimeResource {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnimeResource.class);
     private final AnimeService animeService;
 
     @Inject
@@ -66,4 +69,9 @@ public class AnimeResource {
         animeService.fillAniDbData();
     }
 
+    @GET
+    @Path("updateThumbnail")
+    public void updateThumbnail(){
+        animeService.fillThumbnails();
+    }
 }

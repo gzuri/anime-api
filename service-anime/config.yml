@@ -1,0 +1,27 @@
+server:
+  applicationConnectors:
+  - type: http
+    port: 9000
+  adminConnectors:
+  - type: http
+    port: 9001
+
+logging:
+  level: INFO
+  appenders:
+  - type: console
+    threshold: INFO
+    timeZone: UTC
+    target: stdout
+    logFormat: "%-5level [%date{ISO8601}]: %msg%n"
+    includeCallerData: true
+
+template: Hello, %s!
+defaultName: Stranger
+# Database settings.
+
+dbLocation: /Users/gzuri/git/anime-api/db.json
+imagesLocation: /Users/gzuri/git/anime-api/service-anime/target/
+
+swagger:
+    resourcePackage: com.goranzuri.anime.api

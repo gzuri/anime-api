@@ -1,9 +1,0 @@
-template: Hello, %s!
-defaultName: Stranger
-# Database settings.
-
-dbLocation: /Users/gzuri/git/anime-api/db.json
-imagesLocation: /Users/gzuri/git/anime-api/target/
-
-swagger:
-    resourcePackage: com.goranzuri.anime.api

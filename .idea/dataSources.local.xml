@@ -9,7 +9,7 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
-      <introspection-schemas>*</introspection-schemas>
+      <introspection-schemas>*:*</introspection-schemas>
       <ssh-properties>
         <enabled>false</enabled>
         <proxy-host>goranzuri.com</proxy-host>

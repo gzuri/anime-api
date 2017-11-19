@@ -29,7 +29,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.goranzuri.series.Main</mainClass>
+                            <mainClass>com.goranzuri.anime.api.syncservice.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -4,6 +4,8 @@ import com.goranzuri.anime.AnimeApiConfiguration;
 import com.goranzuri.anime.entities.Anime;
 import com.goranzuri.anime.exceptions.AnimeNotFoundException;
 import com.goranzuri.anime.providers.DbProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
  * Created by gzuri on 14/08/2017.
  */
 public class AnimeService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnimeService.class);
+
     private final AnimeApiConfiguration configuration;
     private final DbProvider dbProvider;
     private final AniDbService aniDbService;
@@ -134,6 +138,7 @@ public class AnimeService {
             try{
                 Integer aniDbCode = aniDbService.getAnidbCode(anime.getName());
                 anime.setAnidbCode(aniDbCode.toString());
+                LOGGER.info("updated aniDbCode for: {}", anime.getName());
                 dbProvider.update(anime);
 
             }catch (Exception ex){
@@ -157,9 +162,10 @@ public class AnimeService {
 
                 anime.setThumbnail(pullThumbnail(anime, thumbnailUrl));
                 dbProvider.update(anime);
+                LOGGER.info("updated thumbnail for: {}", anime.getName());
 
             }catch (Exception ex){
-
+                ex.printStackTrace();
             }
         }
 

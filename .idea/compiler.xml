@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="anime-api" target="1.5" />
+      <module name="anime-api" target="1.8" />
       <module name="maven-archiver" target="1.5" />
       <module name="service-anime" target="1.8" />
       <module name="sync-client" target="1.8" />

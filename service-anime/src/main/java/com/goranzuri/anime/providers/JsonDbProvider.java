@@ -9,8 +9,10 @@ import com.goranzuri.anime.exceptions.AnimeNotFoundException;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by gzuri on 10/10/2017.
@@ -32,11 +34,14 @@ public class JsonDbProvider implements DbProvider {
         List<Anime> animes = null;
         try {
             animes = mapper.readValue(new File(configuration.getDbLocation()), new TypeReference<List<Anime>>(){} );
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return animes;
+        return animes.stream()
+                .sorted(Comparator.comparing(el -> el.getName().toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     public Anime get(UUID animeId) throws AnimeNotFoundException {
